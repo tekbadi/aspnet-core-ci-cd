@@ -1,0 +1,8 @@
+services:  
+    api:
+        build:
+            context: .
+            dockerfile: dockerfile
+        ports:
+            - 80:80
+        restart: always
