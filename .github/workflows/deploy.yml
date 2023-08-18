@@ -1,0 +1,19 @@
+name: Publish Backend
+on:
+  push:
+    branches:
+      - prod
+jobs:
+  release:
+    concurrency: 
+      group: ${{ github.ref }}
+    runs-on: ubuntu-latest
+    steps:
+    - name: executing remote ssh commands using password
+      uses: appleboy/ssh-action@master
+      with:
+        host: ${{ secrets.SSH_HOST }}
+        username: ${{ secrets.SSH_USERNAME }}
+        key: ${{ secrets.SSH_KEY }}
+        port: ${{ secrets.SSH_PORT }}
+        script: cd /home/debian/aspnet-core-ci-cd && git checkout prod  && git pull && bash start.sh
